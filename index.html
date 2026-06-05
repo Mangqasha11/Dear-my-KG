@@ -34,10 +34,6 @@
             color:white;
         }
 
-        .think{
-            background:#dcdcdc;
-        }
-
         #content{
             display:none;
         }
@@ -49,7 +45,6 @@
         /* ❤️ Heartbeat animation */
         .heart-beat {
             display: inline-block;
-            animation: none;
             transform-origin: center;
         }
 
@@ -87,18 +82,7 @@
         </p>
 
         <p>
-            You asked me once how I knew that I loved you.
-            Honestly, there wasn't a single moment where it suddenly clicked.
-            It was something that grew every day I spent getting to know you.
-        </p>
-
-        <p>
-            But if I had to give an answer, it would be this:
-            whenever I think about the future, you're in it.
-        </p>
-
-        <p>
-            And that's when I knew—because loving you stopped feeling like a possibility
+            And that's when I knew—loving you stopped feeling like a possibility
             and started feeling like something I couldn't imagine not doing.
         </p>
 
@@ -109,33 +93,31 @@
 
         <h1>I have beeeeeeen meaning to ask...</h1>
 
-        <h1>I have beeeeeeen meaning to ask, Will you be my girl? ❤️</h1>
+        <h1>Will you be my girl? ❤️</h1>
 
-        <p>(By the way, there is only one correct answer 😌)</p>
+        <p>(There is only one correct answer 😌)</p>
 
         <button class="yes" onclick="yesAnswer()">❤️ Yes</button>
 
         <h2 id="response"></h2>
 
-        <!-- ❤️ MUSIC SECTION -->
+        <!-- 🎵 MUSIC SECTION -->
         <div class="music-embed">
-            <p style="font-size:18px; margin-bottom:10px;" class="heart-beat" id="musicText">
-                🎵 Our song for this moment 🎵
+
+            <p class="heart-beat" id="musicText" style="font-size:18px; margin-bottom:10px;">
+                🎵 So Into You — Tamia 🎵
             </p>
 
             <iframe 
                 id="musicPlayer"
-                allow="autoplay *; encrypted-media *;" 
-                frameborder="0" 
-                height="150" 
-                style="width:100%; max-width:660px; overflow:hidden; border-radius:12px;"
-                sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation"
-                src="https://embed.music.apple.com/us/album/if-i-aint-got-you/1440829153?i=1440829153">
+                allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
+                frameborder="0"
+                height="175"
+                style="width:100%; max-width:660px; overflow:hidden; border-radius:10px;"
+                sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+                src="https://embed.music.apple.com/za/song/so-into-you/390307611">
             </iframe>
 
-            <p style="font-size:14px; color:#888; margin-top:10px;">
-                "If I Ain't Got You" – Alicia Keys ❤️
-            </p>
         </div>
 
     </div>
@@ -152,21 +134,18 @@ function yesAnswer(){
     "❤️ Ndiyakuthanda Bhabha wam ❤️<br><br>I can't wait to make even more memories with you.";
 }
 
-/* ❤️ Try to detect interaction with iframe and start heartbeat */
+/* ❤️ Heartbeat trigger (best possible workaround for Apple Music embed) */
 let musicText = document.getElementById("musicText");
+let musicPlayer = document.getElementById("musicPlayer");
 
 function startHeartbeat(){
     musicText.classList.add("active");
 }
 
-function stopHeartbeat(){
-    musicText.classList.remove("active");
-}
-
-/* Since we cannot directly detect Apple Music play state,
-   we simulate heartbeat starting when user interacts */
-document.getElementById("musicPlayer").addEventListener("mouseenter", startHeartbeat);
-document.getElementById("musicPlayer").addEventListener("click", startHeartbeat);
+/* We cannot detect actual playback state from Apple Music embeds,
+   so we trigger animation on interaction */
+musicPlayer.addEventListener("mouseenter", startHeartbeat);
+musicPlayer.addEventListener("click", startHeartbeat);
 
 </script>
 
