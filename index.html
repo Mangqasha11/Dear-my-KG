@@ -38,14 +38,20 @@
             display:none;
         }
 
-        .music-embed {
-            margin-top: 25px;
+        .line{
+            opacity:0;
+            transform: translateY(10px);
+            transition: all 0.8s ease;
+            margin: 12px 0;
         }
 
-        /* ❤️ Heartbeat animation */
-        .heart-beat {
-            display: inline-block;
-            transform-origin: center;
+        .line.show{
+            opacity:1;
+            transform: translateY(0);
+        }
+
+        .music-embed {
+            margin-top: 25px;
         }
 
         .heart-beat.active {
@@ -58,6 +64,10 @@
             40%  { transform: scale(0.98); }
             60%  { transform: scale(1.12); }
             100% { transform: scale(1); }
+        }
+
+        #response{
+            margin-top:15px;
         }
     </style>
 </head>
@@ -72,39 +82,33 @@
 
     <div id="content">
 
-        <p>We've spent so much time talking, laughing, and getting to know each other.</p>
+        <!-- STORY LINES -->
+        <div class="line">We've spent so much time talking, laughing, and getting to know each other.</div>
+        <div class="line">Somehow, you've become one of my favourite parts of every day.</div>
+        <div class="line">Even though we're miles apart, I've never felt distant from you.</div>
+        <div class="line">Seeing you smile makes even my worst days better.</div>
+        <div class="line">And I love you more than I can properly put into words.</div>
 
-        <p>Somehow, you've become one of my favourite parts of every day.</p>
+        <div class="line">There wasn't a single moment I realized it.</div>
+        <div class="line">It grew quietly, every time we spoke.</div>
+        <div class="line">And now it just feels natural.</div>
 
-        <p>
-            Even though we're miles apart, I've never really felt distant from you when we get to call each other.
-            Seeing you smile has a way of making my nights better, and I love you more than I can properly put into words.
-        </p>
+        <div class="line">Whenever I think about the future… you're in it.</div>
+        <div class="line">And that’s how I knew.</div>
 
-        <p>
-            And that's when I knew—loving you stopped feeling like a possibility
-            and started feeling like something I couldn't imagine not doing.
-        </p>
+        <h2 class="line">Also... KG feels too formal now. I want cute names ❤️</h2>
 
-        <h2>
-            Also... it feels a little unfair having to call you only "KG".
-            I want to be able to call you by all them cute names. ❤️
-        </h2>
+        <h1 class="line">So I have beeeeeen meaning to ask...</h1>
+        <h1 class="line">Will you be my girl? ❤️</h1>
 
-        <h1>I have beeeeeeen meaning to ask...</h1>
-
-        <h1>Will you be my girl? ❤️</h1>
-
-        <p>(There is only one correct answer 😌)</p>
-
-        <button class="yes" onclick="yesAnswer()">❤️ Yes</button>
+        <button class="yes line" onclick="yesAnswer()">❤️ Yes</button>
 
         <h2 id="response"></h2>
 
-        <!-- 🎵 MUSIC SECTION -->
+        <!-- MUSIC -->
         <div class="music-embed">
 
-            <p class="heart-beat" id="musicText" style="font-size:18px; margin-bottom:10px;">
+            <p class="heart-beat" id="musicText" style="font-size:18px;">
                 🎵 So Into You — Tamia 🎵
             </p>
 
@@ -125,27 +129,44 @@
 
 <script>
 
+let started = false;
+
 function showMessage(){
     document.getElementById("content").style.display = "block";
 }
 
+/* YES RESPONSE */
 function yesAnswer(){
     document.getElementById("response").innerHTML =
     "❤️ Ndiyakuthanda Bhabha wam ❤️<br><br>I can't wait to make even more memories with you.";
 }
 
-/* ❤️ Heartbeat trigger (best possible workaround for Apple Music embed) */
-let musicText = document.getElementById("musicText");
-let musicPlayer = document.getElementById("musicPlayer");
+/* LINE-BY-LINE REVEAL */
+function revealLines(){
+    const lines = document.querySelectorAll(".line");
 
-function startHeartbeat(){
-    musicText.classList.add("active");
+    lines.forEach((line, index) => {
+        setTimeout(() => {
+            line.classList.add("show");
+        }, index * 2200); // timing between lines
+    });
 }
 
-/* We cannot detect actual playback state from Apple Music embeds,
-   so we trigger animation on interaction */
-musicPlayer.addEventListener("mouseenter", startHeartbeat);
-musicPlayer.addEventListener("click", startHeartbeat);
+/* HEARTBEAT */
+function startHeartbeat(){
+    document.getElementById("musicText").classList.add("active");
+}
+
+/* MASTER TRIGGER (music interaction) */
+document.getElementById("musicPlayer").addEventListener("click", () => {
+
+    if(started) return;
+    started = true;
+
+    startHeartbeat();
+    revealLines();
+
+});
 
 </script>
 
